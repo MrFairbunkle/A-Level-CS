@@ -3,13 +3,14 @@ import random
 playerHealth = 200
 monsterHealth = 100
 turns=0
+healPots=3
+manaPots=3
 
 def game():
     global playerHealth, monsterHealth, turns
     
     while playerHealth > 0 and monsterHealth > 0:
         diceRollArray = []
-        bagContents = {"Health Potions": 3, "Mana Potions": 3}
         
         for i in range(5):
             diceRollArray.append(random.randint(1, 6))
@@ -29,7 +30,7 @@ def game():
                 print(f"Monster lost 10 health and now has {monsterHealth} health left.\n")
             turns+=1
         elif choice=="B":
-            print(bagContents)
+            bagChoice=input(f"You have {healPots} Heal Potions and {manaPots} Mana Potions. What would you like to do?\nA. Use a Heal Pot (Qty:{healPots})\nB. Use a Mana Pot (Qty:{manaPots})\nC. Exit bag")
         else:
             print("Not a valid option")
 
