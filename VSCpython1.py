@@ -29,7 +29,7 @@ def game():
                 print(f"Monster lost 10 health and now has {monsterHealth} health left.\n")
             turns+=1
         elif choice=="B":
-            print(f"You have"{bagContents}" Health Potions left andg "{bagContents}" Mana Potions left.")
+            print(bagContents)
         else:
             print("Not a valid option")
 
