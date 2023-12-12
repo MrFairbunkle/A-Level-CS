@@ -5,6 +5,15 @@ monsterHealth = 100
 turns=0
 healPots=3
 manaPots=3
+bagContents=[]
+
+file=open("bagContents.txt", "w")
+for line in file:
+    line=line.strip()
+    asalist=line.split(",")
+    bagContents.append(asalist)
+file.close()
+print(bagContents)
 
 def game():
     global playerHealth, monsterHealth, turns
