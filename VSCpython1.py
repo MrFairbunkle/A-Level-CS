@@ -5,15 +5,6 @@ monsterHealth = 100
 turns=0
 healPots=3
 manaPots=3
-bagContents=[]
-
-file=open("bagContents.txt", "w")
-for line in file:
-    line=line.strip()
-    asalist=line.split(",")
-    bagContents.append(asalist)
-file.close()
-print(bagContents)
 
 def game():
     global playerHealth, monsterHealth, turns
@@ -39,7 +30,7 @@ def game():
                 print(f"Monster lost 10 health and now has {monsterHealth} health left.\n")
             turns+=1
         elif choice=="B":
-            bagChoice=input(f"You have {healPots} Heal Potions and {manaPots} Mana Potions. What would you like to do?\nA. Use a Heal Pot (Qty:{healPots})\nB. Use a Mana Pot (Qty:{manaPots})\nC. Exit bag")
+            bagChoice=input(f"What would you like to do?\nA. Use a Heal Pot (Qty:{healPots})\nB. Use a Mana Pot (Qty:{manaPots})\nC. Exit bag")
         else:
             print("Not a valid option")
 
