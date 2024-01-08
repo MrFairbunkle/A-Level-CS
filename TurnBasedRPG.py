@@ -1,7 +1,5 @@
 import random
 import time # add timer for sword guy screen to start game
-import pygame
-
 # screen_wdth = 100%
 
 print("   _____                      _    _____\n  / ____|                    | |  / ____|\n | (_____      _____  _ __ __| | | |  __ _   _ _   _\n  \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |\n  ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |\n |_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |\n                                                __/ |\n                                               |___/ ")
@@ -21,7 +19,7 @@ class Player:
         damage = max(0, self.attack - enemy.defense)
         enemy.health -= damage
         print(f"{self.name} attacks {enemy.name} and deals {damage} damage.")
-
+        
 class Enemy:
     def __init__(self, name, health, attack, defense):
         self.name = name
