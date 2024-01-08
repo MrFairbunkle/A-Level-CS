@@ -1,6 +1,11 @@
 import random
+import time # add timer for sword guy screen to start game
+import pygame
+
+# screen_wdth = 100%
 
 print("   _____                      _    _____\n  / ____|                    | |  / ____|\n | (_____      _____  _ __ __| | | |  __ _   _ _   _\n  \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |\n  ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |\n |_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |\n                                                __/ |\n                                               |___/ ")
+print("\nWelcome to Sword Guy, the turn based adventure RPG where the only limit to power is your patience.\n")
 
 class Player:
     def __init__(self, name):
@@ -61,8 +66,6 @@ def main():
         'Sword': {'attack': 5},
         'Shield': {'defense': 3},
     }
-
-    print("\nWelcome to the Text-Based RPG Game!\n")
 
     while True:
         print("\n1. Display Player Stats")
