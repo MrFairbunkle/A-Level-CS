@@ -99,5 +99,61 @@ def main():
         else:
             print("Invalid choice. Please enter a valid option.")
 
+# import random
+
+# # Function to generate a random position for the sword on the grid
+# def generate_sword_position(grid_size):
+#     return random.randint(0, grid_size-1), random.randint(0, grid_size-1)
+
+# # Function to check if the player can move in a certain direction
+# def can_move(x, y, direction, grid_size):
+#     if direction == 'up':
+#         return y > 0
+#     elif direction == 'down':
+#         return y < grid_size - 1
+#     elif direction == 'left':
+#         return x > 0
+#     elif direction == 'right':
+#         return x < grid_size - 1
+
+# # Function to move the player on the grid
+# def move_player(x, y, direction):
+#     if direction == 'up':
+#         return x, y - 1
+#     elif direction == 'down':
+#         return x, y + 1
+#     elif direction == 'left':
+#         return x - 1, y
+#     elif direction == 'right':
+#         return x + 1, y
+
+# # Size of the grid
+# grid_size = 5
+
+# # Generate random position for the sword
+# sword_x, sword_y = generate_sword_position(grid_size)
+
+# # Starting position of the player
+# player_x, player_y = 0, 0
+
+# while True:
+#     print(f"Player is at position ({player_x}, {player_y})")
+
+#     # Check if player is on the sword position
+#     if (player_x, player_y) == (sword_x, sword_y):
+#         print("You found the sword!")
+#         break
+
+#     # Roll a dice to determine movement direction
+#     dice_roll = random.choice(['up', 'down', 'left', 'right'])
+
+#     # Check if the player can move in that direction
+#     if can_move(player_x, player_y, dice_roll, grid_size):
+#         player_x, player_y = move_player(player_x, player_y, dice_roll)
+#     else:
+#         print("Cannot move in that direction. Rolling dice again.")
+
+# print("Game Over!")
+
 if __name__ == "__main__":
     main()
