@@ -5,6 +5,10 @@ import time # add timer for sword guy screen to start game
 print("   _____                      _    _____\n  / ____|                    | |  / ____|\n | (_____      _____  _ __ __| | | |  __ _   _ _   _\n  \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |\n  ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |\n |_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |\n                                                __/ |\n                                               |___/ ")
 print("\nWelcome to Sword Guy, the turn based adventure RPG where the only limit to power is your patience.\n")
 
+
+sword_found=False
+shield_found=False
+
 class Player:
     def __init__(self, name):
         self.name = name
@@ -65,95 +69,71 @@ def main():
         'Shield': {'defense': 3},
     }
 
-    while True:
-        print("\n1. Display Player Stats")
-        print("2. Battle Goblin")
-        print("3. Battle Orc")
-        print("4. Pick up Sword")
-        print("5. Pick up Shield")
-        print("6. Quit")
+# Function to generate a random position for the sword on the grid
+def generate_sword_position(grid_size):
+    return random.randint(0, grid_size - 1), random.randint(0, grid_size - 1)
 
-        choice = input("Enter your choice: ")
+# Function to generate a random position for the shield on the grid
+def generate_shield_position(grid_size):
+    return random.randint(0, grid_size - 1), random.randint(0, grid_size - 1)
 
-        if choice == '1':
-            player.display_stats()
+# Function to check if the player can move in a certain direction
+def can_move(x, y, direction, grid_size):
+    if direction == 'up':
+        return y > 0
+    elif direction == 'down':
+        return y < grid_size - 1
+    elif direction == 'left':
+        return x > 0
+    elif direction == 'right':
+        return x < grid_size - 1
 
-        elif choice == '2':
-            battle(player, enemy1)
+# Function to move the player on the grid
+def move_player(x, y, direction):
+    if direction == 'up':
+        return x, y - 1
+    elif direction == 'down':
+        return x, y + 1
+    elif direction == 'left':
+        return x - 1, y
+    elif direction == 'right':
+        return x + 1, y
 
-        elif choice == '3':
-            battle(player, enemy2)
+# Size of the grid
+grid_size = 5
 
-        elif choice == '4':
-            player.attack += items['Sword']['attack']
-            print("You picked up a Sword! Your attack has increased.")
+# Generate random position for the sword
+sword_x, sword_y = generate_sword_position(grid_size)
 
-        elif choice == '5':
-            player.defense += items['Shield']['defense']
-            print("You picked up a Shield! Your defense has increased.")
+# Generate random position for the shield
+shield_x, shield_y = generate_shield_position(grid_size)
 
-        elif choice == '6':
-            print("Goodbye! Thanks for playing.")
-            break
+# Starting position of the player
+player_x, player_y = 0, 0
 
-        else:
-            print("Invalid choice. Please enter a valid option.")
+print(f"\nFor testing purposes, the sword is at ({sword_x},{sword_y}), and shield is at ({shield_x},{shield_y})")
 
-# import random
+while True:
+    print(f"Player is at position ({player_x}, {player_y})")
 
-# # Function to generate a random position for the sword on the grid
-# def generate_sword_position(grid_size):
-#     return random.randint(0, grid_size-1), random.randint(0, grid_size-1)
+    # Check if player is on the sword position
+    if (player_x, player_y) == (sword_x, sword_y):
+        print("You found the sword!")
+        sword_found = True
+    elif (player_x, player_y) == (shield_x, shield_y):
+        print("You found the shield!")
+        shield_found = True   
+    elif sword_found == True and shield_found == True:
+        break
 
-# # Function to check if the player can move in a certain direction
-# def can_move(x, y, direction, grid_size):
-#     if direction == 'up':
-#         return y > 0
-#     elif direction == 'down':
-#         return y < grid_size - 1
-#     elif direction == 'left':
-#         return x > 0
-#     elif direction == 'right':
-#         return x < grid_size - 1
+    # Ask the player for input to choose a direction
+    user_direction = input("Enter a direction (up/down/left/right): ").lower()
 
-# # Function to move the player on the grid
-# def move_player(x, y, direction):
-#     if direction == 'up':
-#         return x, y - 1
-#     elif direction == 'down':
-#         return x, y + 1
-#     elif direction == 'left':
-#         return x - 1, y
-#     elif direction == 'right':
-#         return x + 1, y
-
-# # Size of the grid
-# grid_size = 5
-
-# # Generate random position for the sword
-# sword_x, sword_y = generate_sword_position(grid_size)
-
-# # Starting position of the player
-# player_x, player_y = 0, 0
-
-# while True:
-#     print(f"Player is at position ({player_x}, {player_y})")
-
-#     # Check if player is on the sword position
-#     if (player_x, player_y) == (sword_x, sword_y):
-#         print("You found the sword!")
-#         break
-
-#     # Roll a dice to determine movement direction
-#     dice_roll = random.choice(['up', 'down', 'left', 'right'])
-
-#     # Check if the player can move in that direction
-#     if can_move(player_x, player_y, dice_roll, grid_size):
-#         player_x, player_y = move_player(player_x, player_y, dice_roll)
-#     else:
-#         print("Cannot move in that direction. Rolling dice again.")
-
-# print("Game Over!")
+    # Check if the input direction is valid and the player can move in that direction
+    if user_direction in ['up', 'down', 'left', 'right'] and can_move(player_x, player_y, user_direction, grid_size):
+        player_x, player_y = move_player(player_x, player_y, user_direction)
+    else:
+        print("Invalid direction or cannot move in that direction. Please try again.")
 
 if __name__ == "__main__":
     main()
