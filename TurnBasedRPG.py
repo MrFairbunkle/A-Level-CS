@@ -78,7 +78,7 @@ def generate_shield_position(grid_size):
     return random.randint(0, grid_size - 1), random.randint(0, grid_size - 1)
 
 # Function to check if the player can move in a certain direction
-def can_move(x, y, direction, grid_size):
+def can_move(x, y, direction, grid_size): # ADD DIAGONALS AND SINGLE LETTER MOVEMENT??
     if direction == 'up':
         return y > 0
     elif direction == 'down':
