@@ -1,6 +1,7 @@
 import random
 import time # add timer for sword guy screen to start game
-# screen_wdth = 100%
+# screen_width = 100%
+# screen_height = 100%
 
 print("   _____                      _    _____\n  / ____|                    | |  / ____|\n | (_____      _____  _ __ __| | | |  __ _   _ _   _\n  \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |\n  ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |\n |_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |\n                                                __/ |\n                                               |___/ ")
 print("\nWelcome to Sword Guy, the turn based adventure RPG where the only limit to power is your patience.\n")
@@ -90,13 +91,13 @@ def can_move(x, y, direction, grid_size): # ADD DIAGONALS AND SINGLE LETTER MOVE
 
 # Function to move the player on the grid
 def move_player(x, y, direction):
-    if direction == 'up':
+    if direction == 'u':
         return x, y - 1
-    elif direction == 'down':
+    elif direction == 'd':
         return x, y + 1
-    elif direction == 'left':
+    elif direction == 'l':
         return x - 1, y
-    elif direction == 'right':
+    elif direction == 'r':
         return x + 1, y
 
 # Size of the grid
@@ -127,10 +128,10 @@ while True:
         break
 
     # Ask the player for input to choose a direction
-    user_direction = input("Enter a direction (up/down/left/right): ").lower()
+    user_direction = input("Enter a direction (u/d/l/r): ").lower()
 
     # Check if the input direction is valid and the player can move in that direction
-    if user_direction in ['up', 'down', 'left', 'right'] and can_move(player_x, player_y, user_direction, grid_size):
+    if user_direction in ['u', 'd', 'l', 'r'] and can_move(player_x, player_y, user_direction, grid_size):
         player_x, player_y = move_player(player_x, player_y, user_direction)
     else:
         print("Invalid direction or cannot move in that direction. Please try again.")
