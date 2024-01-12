@@ -44,10 +44,10 @@ turns=0
 healPots=3
 manaPots=3
 
-def combat(player, enemy):
+def combat():
     global turns
     
-    while player.health > 0 and enemy.health > 0:
+    while Player.health > 0 and Enemy.health > 0:
         diceRollArray = []
         
         for i in range(5):
@@ -61,22 +61,22 @@ def combat(player, enemy):
             print(f"You rolled {diceRollArray} and got a total of {total}.")
             
             if total < 20:
-                player.health -= 10
-                print(f"Player lost 10 health and now has {player.health} health left.\n")
+                Player.health -= 10
+                print(f"Player lost 10 health and now has {Player.health} health left.\n")
             else:
-                enemy.health -= 10
-                print(f"Monster lost 10 health and now has {emeny.health} health left.\n")
+                Enemy.health -= 10
+                print(f"Monster lost 10 health and now has {Enemy.health} health left.\n")
             turns+=1
         elif choice=="B":
             bagChoice=input(f"What would you like to do?\nA. Use a Heal Pot (Qty:{healPots})\nB. Use a Mana Pot (Qty:{manaPots})\nC. Exit bag")
         else:
             print("Not a valid option")
 
-    if player.health<=0:
+    if Player.health<=0:
         print(f"\n\nPlayer lost in {turns} turns.")
     else:
         print(f"\n\nPlayer won in {turns} turns.")
-        return player.health
+        return Player.health
 
 # Function to generate a random position for the sword on the grid
 def generate_sword_position(grid_size):
