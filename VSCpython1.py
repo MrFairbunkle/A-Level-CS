@@ -6,7 +6,7 @@ turns=0
 healPots=3
 manaPots=3
 
-def game():
+def combat():
     global playerHealth, monsterHealth, turns
     
     while playerHealth > 0 and monsterHealth > 0:
@@ -41,4 +41,4 @@ def game():
     else:
         print(f"\n\nPlayer won in {turns} turns.")
 
-game()
+combat()
