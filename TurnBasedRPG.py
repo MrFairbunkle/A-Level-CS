@@ -1,30 +1,31 @@
+# Imports
 import random
-import time # add timer for sword guy screen to start game
+import time # add timer for sword guy screen to start game??
+
+# make it into a pygame??
 # screen_width = 100%
 # screen_height = 100%
 
+# Opening info
 print("   _____                      _    _____\n  / ____|                    | |  / ____|\n | (_____      _____  _ __ __| | | |  __ _   _ _   _\n  \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |\n  ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |\n |_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |\n                                                __/ |\n                                               |___/ ")
 print("\nWelcome to Sword Guy, the turn based adventure RPG where the only limit to power is your patience.\n")
 
-
+# Variables for when the game ends (not in use)
 sword_found=False
 shield_found=False
 
+# Creates class for Player with all stats
 class Player:
     def __init__(self, name):
         self.name = name
-        self.health = 100 # physical damage the player can withstand
-        self.attack = 10 # physical damage done by the player's attacks
-        self.defense = 5 # lowers the taken damage by 1 for each 1 defence
+        self.health = 100 # Damage the player can withstand
+        self.attack = 10 # Damage done by the player's attacks
+        self.defense = 5 # Lowers the taken damage by 1 for each 1 defence
 
     def display_stats(self):
         print(f"{self.name}'s Stats - \nHealth: {self.health}\n Attack: {self.attack}\n Defense: {self.defense}")
 
-    def attack_enemy(self, enemy):
-        damage = max(0, self.attack - enemy.defense)
-        enemy.health -= damage
-        print(f"{self.name} attacks {enemy.name} and deals {damage} damage.")
-        
+# Creates class for Enemy with all stats        
 class Enemy:
     def __init__(self, name, health, attack, defense):
         self.name = name
@@ -35,15 +36,12 @@ class Enemy:
     def display_stats(self):
         print(f"{self.name}'s Stats - \nHealth: {self.health}\n Attack: {self.attack}\n Defense: {self.defense}")
 
-    def attack_player(self, player):
-        damage = max(0, self.attack - player.defense)
-        player.health -= damage
-        print(f"{self.name} attacks {player.name} and deals {damage} damage.")
-
+# Combat variables
 turns=0
 healPots=3
 manaPots=3
 
+# Code for combat when encountering goblin
 def combat(player, goblin):
     global turns
     
@@ -131,6 +129,7 @@ def move_player(x, y, direction):
 # Size of the grid
 grid_size = 10
 
+# Function for general usage code
 def main():
     player_name = input("Enter your character's name: ")
     player = Player(player_name)
@@ -155,11 +154,12 @@ def main():
     # Starting position of the player
     player_x, player_y = 0, 0
 
+    # Prints item positions
     print(f"The sword is at ({sword_x},{sword_y})")
     print(f"The shield is at ({shield_x},{shield_y})")
     print(f"The goblin is at ({goblin_x},{goblin_y})")
 
-
+    # Prints player position
     while True:
         print(f"Player is at position ({player_x}, {player_y})")
 
@@ -173,8 +173,6 @@ def main():
         elif (player_x, player_y) == (goblin_x, goblin_y):
             print("You found a goblin!")
             combat(player, goblin)
-        #elif sword_found == True and shield_found == True:
-            #break
 
         # Ask the player for input to choose a direction
         user_direction = input("Enter a direction (u/d/l/r/ur/ul/dr/dl): ").lower()
