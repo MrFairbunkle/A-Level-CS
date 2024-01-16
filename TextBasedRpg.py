@@ -2,6 +2,10 @@
 import random
 import time
 
+
+# NOTE: MAKE ALL TEXT SLEEPED
+
+
 # Opening info
 time.sleep(0.15)
 print("  _____                      _    _____")
