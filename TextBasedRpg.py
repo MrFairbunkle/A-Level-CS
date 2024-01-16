@@ -13,6 +13,8 @@ print("\nWelcome to Sword Guy, the turn based adventure RPG where the only limit
 # Variables for when the game ends (not in use)
 sword_found=False
 shield_found=False
+goblin_dead=False
+player_dead=False
 
 # Creates class for Player with all stats
 class Player:
@@ -43,7 +45,7 @@ manaPots=3
 
 # Code for combat when encountering goblin
 def combat(player, goblin):
-    global turns
+    global turns, healPots, manaPots, player_dead, goblin_dead
     
     while player.health > 0 and goblin.health> 0:
         diceRollArray = []
@@ -51,8 +53,7 @@ def combat(player, goblin):
         for i in range(5):
             diceRollArray.append(random.randint(1, 6))
 
-        choice=input("Do you want to: A. take your turn, or B. use an item? ")
-        choice=choice.upper()
+        choice=input("Do you want to: A. take your turn, or B. use an item? ").upper()
         if choice=="A":
             total = sum(diceRollArray)
             print(f"Turn {turns+1}")
@@ -66,14 +67,22 @@ def combat(player, goblin):
                 print(f"Monster lost 10 health and now has {goblin.health} health left.\n")
             turns+=1
         elif choice=="B":
-            bagChoice=input(f"What would you like to do?\nA. Use a Heal Pot (Qty:{healPots})\nB. Use a Mana Pot (Qty:{manaPots})\nC. Exit bag")
+            bagChoice=input(f"What would you like to do?\nA. Use a Heal Potion (Qty:{healPots})\nB. Use a Mana Potion (Qty:{manaPots})\nC. Exit bag\n").upper()
+            if bagChoice=="A":
+                healPots-=1
+                player.health+=30
+                if player.health>=100:
+                    player.health=100
+                print(f"Heal potion used.\nYou now have {healPots} Heal Potions left.\nYou are now on {player.health} health.")
         else:
             print("Not a valid option")
 
     if player.health<=0:
         print(f"\n\nPlayer lost in {turns} turns.")
+        player_dead=True
     else:
         print(f"\n\nPlayer won in {turns} turns.")
+        goblin_dead=True
         return player.health
 
 # Function to generate a random position for the sword on the grid
@@ -90,40 +99,40 @@ def generate_goblin_position(grid_size):
 
 # Function to check if the player can move in a certain direction
 def can_move(x, y, direction, grid_size): # ADD DIAGONALS AND SINGLE LETTER MOVEMENT??
-    if direction == 'u':
+    if direction == 'w':
         return y > 0
-    elif direction == 'd':
+    elif direction == 's':
         return y < grid_size - 1
-    elif direction == 'l':
+    elif direction == 'a':
         return x > 0
-    elif direction == 'r':
+    elif direction == 'd':
         return x < grid_size - 1
-    elif direction =='ur':
+    elif direction =='wd':
         return y > 0 and x < grid_size - 1
-    elif direction =='ul':
+    elif direction =='wa':
         return y > 0 and x > 0
-    elif direction =='dr':
+    elif direction =='sd':
         return y < grid_size - 1 and x < grid_size - 1
-    elif direction =='dl':
+    elif direction =='sa':
         return y < grid_size - 1 and x > 0
 
 # Function to move the player on the grid
 def move_player(x, y, direction):
-    if direction == 'u':
+    if direction == 'w':
         return x, y - 1
-    elif direction == 'd':
+    elif direction == 's':
         return x, y + 1
-    elif direction == 'l':
+    elif direction == 'a':
         return x - 1, y
-    elif direction == 'r':
+    elif direction == 'd':
         return x + 1, y
-    elif direction =='ur':
+    elif direction =='wd':
         return x + 1, y - 1
-    elif direction =='ul':
+    elif direction =='wa':
         return x - 1, y - 1
-    elif direction =='dr':
+    elif direction =='sd':
         return x + 1, y + 1
-    elif direction =='dl':
+    elif direction =='sa':
         return x - 1, y + 1
 
 # Size of the grid
@@ -131,6 +140,7 @@ grid_size = 10
 
 # Function for general usage code
 def main():
+    global sword_found, shield_found, goblin_dead, player_dead
     player_name = input("Enter your character's name: ")
     player = Player(player_name)
 
@@ -173,12 +183,17 @@ def main():
         elif (player_x, player_y) == (goblin_x, goblin_y):
             print("You found a goblin!")
             combat(player, goblin)
+        if player_dead == True:
+            quit()
+        elif goblin_dead == True and sword_found == True and shield_found == True:
+            print("Congraulations! You win!")
+            quit()
 
         # Ask the player for input to choose a direction
-        user_direction = input("Enter a direction (u/d/l/r/ur/ul/dr/dl): ").lower()
+        user_direction = input("Enter a direction (w for up/s for down/a for left/d for right/wd for up & right/wa for up & left/sd for down & right/sa for down & left): ").lower()
 
         # Check if the input direction is valid and the player can move in that direction
-        if user_direction in ['u', 'd', 'l', 'r', 'ur', 'ul', 'dr', 'dl'] and can_move(player_x, player_y, user_direction, grid_size):
+        if user_direction in ['w', 's', 'a', 'd', 'wd', 'wa', 'sd', 'sa'] and can_move(player_x, player_y, user_direction, grid_size):
             player_x, player_y = move_player(player_x, player_y, user_direction)
         else:
             print("Invalid direction or cannot move in that direction. Please try again.")
