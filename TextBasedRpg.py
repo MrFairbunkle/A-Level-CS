@@ -3,7 +3,22 @@ import random
 import time
 
 # Opening info
-print("   _____                      _    _____\n  / ____|                    | |  / ____|\n | (_____      _____  _ __ __| | | |  __ _   _ _   _\n  \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |\n  ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |\n |_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |\n                                                __/ |\n                                               |___/ ")
+time.sleep(0.15)
+print("  _____                      _    _____")
+time.sleep(0.15)
+print(" / ____|                    | |  / ____|")
+time.sleep(0.15)
+print("| (_____      _____  _ __ __| | | |  __ _   _ _   _")
+time.sleep(0.15)
+print(" \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |")
+time.sleep(0.15)
+print(" ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |")
+time.sleep(0.15)
+print("|_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |")
+time.sleep(0.15)
+print("                                               __/ |")
+time.sleep(0.15)
+print("                                              |___/ ")
 time.sleep(1)
 print("\nWelcome to Sword Guy, the turn based adventure RPG where the only limit to power is your patience.\n")
 
