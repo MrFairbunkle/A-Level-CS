@@ -1,13 +1,10 @@
 # Imports
 import random
-import time # add timer for sword guy screen to start game??
-
-# make it into a pygame??
-# screen_width = 100%
-# screen_height = 100%
+import time
 
 # Opening info
 print("   _____                      _    _____\n  / ____|                    | |  / ____|\n | (_____      _____  _ __ __| | | |  __ _   _ _   _\n  \___ \ \ /\ / / _ \| '__/ _` | | | |_ | | | | | | |\n  ____) \ V  V / (_) | | | (_| | | |__| | |_| | |_| |\n |_____/ \_/\_/ \___/|_|  \__,_|  \_____|\__,_|\__, |\n                                                __/ |\n                                               |___/ ")
+time.sleep(1)
 print("\nWelcome to Sword Guy, the turn based adventure RPG where the only limit to power is your patience.\n")
 
 # Variables for when the game ends (not in use)
@@ -20,23 +17,23 @@ player_dead=False
 class Player:
     def __init__(self, name):
         self.name = name
-        self.health = 100 # Damage the player can withstand
-        self.attack = 10 # Damage done by the player's attacks
-        self.defense = 5 # Lowers the taken damage by 1 for each 1 defence
+        self.health = 100
+        self.attack = 10
+        self.defence = 0
 
     def display_stats(self):
-        print(f"{self.name}'s Stats - \nHealth: {self.health}\n Attack: {self.attack}\n Defense: {self.defense}")
+        print(f"{self.name}'s Stats - \nHealth: {self.health}\n Attack: {self.attack}\n Defence: {self.defence}")
 
 # Creates class for Enemy with all stats        
 class Enemy:
-    def __init__(self, name, health, attack, defense):
+    def __init__(self, name, health, attack, defence):
         self.name = name
         self.health = health
         self.attack = attack
-        self.defense = defense
+        self.defence = defence
 
     def display_stats(self):
-        print(f"{self.name}'s Stats - \nHealth: {self.health}\n Attack: {self.attack}\n Defense: {self.defense}")
+        print(f"{self.name}'s Stats - \nHealth: {self.health}\n Attack: {self.attack}\n Defence: {self.defence}")
 
 # Combat variables
 turns=0
@@ -98,7 +95,7 @@ def generate_goblin_position(grid_size):
     return random.randint(0, grid_size - 1), random.randint(0, grid_size - 1)
 
 # Function to check if the player can move in a certain direction
-def can_move(x, y, direction, grid_size): # ADD DIAGONALS AND SINGLE LETTER MOVEMENT??
+def can_move(x, y, direction, grid_size):
     if direction == 'w':
         return y > 0
     elif direction == 's':
@@ -141,6 +138,7 @@ grid_size = 10
 # Function for general usage code
 def main():
     global sword_found, shield_found, goblin_dead, player_dead
+    time.sleep(1)
     player_name = input("Enter your character's name: ")
     player = Player(player_name)
 
@@ -149,7 +147,7 @@ def main():
 
     items = {
         'Sword': {'attack': 5},
-        'Shield': {'defense': 3},
+        'Shield': {'defence': 3},
     }
 
     # Generate random position for the sword
@@ -171,14 +169,20 @@ def main():
 
     # Prints player position
     while True:
-        print(f"Player is at position ({player_x}, {player_y})")
+        print(f"Player is at position ({player_x}, {player_y}), (0,0) is top left corner") # NOTE: Make random when bigger and more items
 
         # Check if player is on the sword position
         if (player_x, player_y) == (sword_x, sword_y):
             print("You found the sword!")
+            player.attack+=3
+            print(f"Player damage now increased to {player.attack}.")
             sword_found = True
         elif (player_x, player_y) == (shield_x, shield_y):
             print("You found the shield!")
+            player.health+=10
+            player.defence+=1
+            print(f"Player health now increased to {player.health}.")
+            print(f"Player defence now increased to {player.defence}.")
             shield_found = True   
         elif (player_x, player_y) == (goblin_x, goblin_y):
             print("You found a goblin!")
