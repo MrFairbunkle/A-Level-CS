@@ -169,7 +169,7 @@ def main():
         'Shield': {'defence': 3},
     }
 
-    # Generate random position for the sword # NOTE: Make not able to spawn in same place
+    # Generate random position for the sword # NOTE: Make not able to spawn in same place or get multiple
     sword_x, sword_y = generate_sword_position(grid_size)
 
     # Generate random position for the shield
