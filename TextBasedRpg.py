@@ -77,7 +77,7 @@ def combat(player, goblin):
             
             if total < 20:
                 player.health -= 10
-                print(f"Player lost 10 health and now has {player.health} health left.\n")
+                print(f"You lost 10 health and now has {player.health} health left.\n")
             else:
                 goblin.health -= 10
                 print(f"Monster lost 10 health and now has {goblin.health} health left.\n")
@@ -94,10 +94,10 @@ def combat(player, goblin):
             print("Not a valid option")
 
     if player.health<=0:
-        print(f"\n\nPlayer lost in {turns} turns.")
+        print(f"You lost in {turns} turns.\n")
         player_dead=True
     else:
-        print(f"\n\nPlayer won in {turns} turns.")
+        print(f"You won in {turns} turns.\n")
         goblin_dead=True
         return player.health
 
@@ -158,7 +158,7 @@ grid_size = 10
 def main():
     global sword_found, shield_found, goblin_dead, player_dead
     time.sleep(1)
-    player_name = input("Enter your character's name: ")
+    player_name = input("Enter your character's name: ").title()
     player = Player(player_name)
 
     goblin = Enemy("Goblin", 30, 8, 3)
@@ -169,7 +169,7 @@ def main():
         'Shield': {'defence': 3},
     }
 
-    # Generate random position for the sword
+    # Generate random position for the sword # NOTE: Make not able to spawn in same place
     sword_x, sword_y = generate_sword_position(grid_size)
 
     # Generate random position for the shield
@@ -181,30 +181,33 @@ def main():
     # Starting position of the player
     player_x, player_y = 0, 0
 
-    # Prints item positions
-    print(f"The sword is at ({sword_x},{sword_y})")
-    print(f"The shield is at ({shield_x},{shield_y})")
-    print(f"The goblin is at ({goblin_x},{goblin_y})")
+    #Prints general info
+    print("\n0,0 is the top left corner\n")
+
+    # Prints item positions for testing
+    print(f"The sword is at ({sword_x},{sword_y})\n")
+    print(f"The shield is at ({shield_x},{shield_y})\n")
+    print(f"The goblin is at ({goblin_x},{goblin_y})\n")
 
     # Prints player position
     while True:
-        print(f"Player is at position ({player_x}, {player_y}), (0,0) is top left corner") # NOTE: Make random when bigger and more items
+        print(f"{player_name} is at position ({player_x}, {player_y})\n") # NOTE: Make random when bigger and more items
 
         # Check if player is on the sword position
         if (player_x, player_y) == (sword_x, sword_y):
-            print("You found the sword!")
+            print("You found the sword!\n")
             player.attack+=3
-            print(f"Player damage now increased to {player.attack}.")
+            print(f"{player_name}'s damage now increased to {player.attack}.")
             sword_found = True
         elif (player_x, player_y) == (shield_x, shield_y):
-            print("You found the shield!")
+            print("You found the shield!\n")
             player.health+=10
             player.defence+=1
-            print(f"Player health now increased to {player.health}.")
-            print(f"Player defence now increased to {player.defence}.")
+            print(f"{player_name}'s health now increased to {player.health}.")
+            print(f"{player_name}'s defence now increased to {player.defence}.")
             shield_found = True   
         elif (player_x, player_y) == (goblin_x, goblin_y):
-            print("You found a goblin!")
+            print("You found a goblin!\n")
             combat(player, goblin)
         if player_dead == True:
             quit()
