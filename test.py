@@ -16,27 +16,30 @@ def print_world(world, player_row, player_column):
         print()
 
 def move_player(world, current_row, current_column, previous_value):
-    # Update the current position with the previous value
-    world[current_row][current_column] = previous_value
+  while True:
+        move = input("Enter a direction (up/down/left/right): ").lower()
 
-    move = input("Enter a direction (up/down/left/right): ").lower()
+        new_row, new_column = current_row, current_column  # Initialize with current position
+        if move == "up" and current_row > 0:
+            new_row -= 1
+        elif move == "down" and current_row < len(world) - 1:
+            new_row += 1
+        elif move == "left" and current_column > 0:
+            new_column -= 1
+        elif move == "right" and current_column < len(world[0]) - 1:
+            new_column += 1
+        else:
+            print("Invalid direction. Please try again.")  # Inform the user of invalid input
+            continue  # Restart the loop to prompt for a valid input
 
-    if move == "up" and current_row > 0:
-        current_row -= 1
-    elif move == "down" and current_row < len(world) - 1:
-        current_row += 1
-    elif move == "left" and current_column > 0:
-        current_column -= 1
-    elif move == "right" and current_column < len(world[0]) - 1:
-        current_column += 1
-
-    # Get the initial value of the cell where the player is moving to
-    initial_value = world[current_row][current_column]
-
-    # Update the new cell with the player value
-    world[current_row][current_column] = 8
-
-    return current_row, current_column, initial_value
+        if world[new_row][new_column] == 0:
+            print("You cannot move into the river. Please try again.")
+        else:
+            # Update the current position with the previous value
+            world[current_row][current_column] = previous_value
+            # Update the new cell with the player value
+            world[new_row][new_column] = 8
+            return new_row, new_column, world[current_row][current_column]
 
 
 
