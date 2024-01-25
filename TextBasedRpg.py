@@ -195,20 +195,23 @@ def main():
 
         # Check if player is on the sword position
         if (player_x, player_y) == (sword_x, sword_y):
-            print("You found the sword!\n")
-            player.attack+=3
-            print(f"{player_name}'s damage now increased to {player.attack}.")
-            sword_found = True
+            if sword_found == False:
+                print("You found the sword!\n")
+                player.attack+=3
+                print(f"{player_name}'s damage now increased to {player.attack}.")
+                sword_found = True
         elif (player_x, player_y) == (shield_x, shield_y):
-            print("You found the shield!\n")
-            player.health+=10
-            player.defence+=1
-            print(f"{player_name}'s health now increased to {player.health}.")
-            print(f"{player_name}'s defence now increased to {player.defence}.")
-            shield_found = True   
+            if shield_found==False:
+                print("You found the shield!\n")
+                player.health+=10
+                player.defence+=1
+                print(f"{player_name}'s health now increased to {player.health}.")
+                print(f"{player_name}'s defence now increased to {player.defence}.")
+                shield_found = True   
         elif (player_x, player_y) == (goblin_x, goblin_y):
-            print("You found a goblin!\n")
-            combat(player, goblin)
+            if goblin_dead==False:
+                print("You found a goblin!\n")
+                combat(player, goblin)
         if player_dead == True:
             quit()
         elif goblin_dead == True and sword_found == True and shield_found == True:
