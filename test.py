@@ -77,17 +77,18 @@ while True:
 worldData[player_row][player_column] = 8
 
 # Main loop for player movement
+player_previous_value = player_starting_pos  # This line tracks the cell's original value
 while True:
     # Check for nearby river within 2 spaces
     if any(
         worldData[i][j] == 0
-        for i in range(max(0, player_row - 2), min(len(worldData), player_row + 3))
-        for j in range(max(0, player_column - 2), min(len(worldData[0]), player_column + 3))
+        for i in range(max(0, player_row - 2), min(num_rows, player_row + 3))
+        for j in range(max(0, player_column - 2), min(num_columns, player_column + 3))
     ):
         print("You can hear flowing water")
-
+    
     # Move the player and print the world
-    print("")
-    print("")
+    print("\n\n")  # You can use "\n" for new lines to clean up code
     print_world(worldData, player_row, player_column)
-    player_row, player_column, previous_value = move_player(worldData, player_row, player_column, worldData[player_row][player_column])
+    # Here we pass player_previous_value to move_player to 'leave behind' as we move to a new cell
+    player_row, player_column, player_previous_value = move_player(worldData, player_row, player_column, player_previous_value)
