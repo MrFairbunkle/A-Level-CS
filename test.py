@@ -16,6 +16,7 @@ def print_world(world, player_row, player_column):
         print()
 
 def move_player(world, current_row, current_column, previous_value):
+    # Update the current position with the previous value
     world[current_row][current_column] = previous_value
 
     move = input("Enter a direction (up/down/left/right): ").lower()
@@ -29,10 +30,13 @@ def move_player(world, current_row, current_column, previous_value):
     elif move == "right" and current_column < len(world[0]) - 1:
         current_column += 1
 
-    previous_value = world[current_row][current_column]
+    # Get the initial value of the cell where the player is moving to
+    initial_value = world[current_row][current_column]
+
+    # Update the new cell with the player value
     world[current_row][current_column] = 8
 
-    return current_row, current_column, previous_value
+    return current_row, current_column, initial_value
 
 
 
