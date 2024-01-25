@@ -3,7 +3,7 @@ import random
 import time
 
 
-# NOTE: MAKE ALL TEXT SLEEPED
+# NOTE: Make position unknown but with actual features like villages, mountains, rivers, etc and it tells you where you are by saying things like: "you hear water nearby" if you are within 2 spaces of a river.
 
 
 # Opening info
