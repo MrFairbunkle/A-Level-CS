@@ -9,10 +9,10 @@ pygame.init()
 screen=pygame.display.set_mode((screen_width,screen_height))
 redsize=15
 bluesize=15
-redy=200
-bluey=200
-redsquare=pygame.Rect(920,redy,redsize,redsize*6)
-bluesquare=pygame.Rect(80,bluey,bluesize,bluesize*6)
+redsquare=pygame.Rect(920,200,redsize,redsize*6)
+bluesquare=pygame.Rect(80,200,bluesize,bluesize*6)
+redsquare.y
+bluesquare.y
 pygame.display.flip()
 RED=(255,0,0)
 BLUE=(0,0,255)
@@ -25,14 +25,18 @@ while running:
             running=False
 
     key = pygame.key.get_pressed()
-    if key[pygame.K_w] == False: 
-        bluey-=5
+    if key[pygame.K_w]: 
+        if bluesquare.y - 5 >= 0:
+            bluesquare.y-=5
     if key[pygame.K_s]:
-        bluey+=5
+        if bluesquare.y + 5 <= screen_height:
+            bluesquare.y+=5
     if key[pygame.K_UP]:
-        redy-=5
+        if redsquare.y - 5 >= 0:
+            redsquare.y-=5
     if key[pygame.K_DOWN]:
-        redy+=5
+        if bluesquare.y + 5 <= screen_height:
+            redsquare.y+=5
 
     screen.fill("#ffffff")
     pygame.draw.rect(screen,RED,redsquare)
