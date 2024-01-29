@@ -1,9 +1,10 @@
-# imports
+# Imports
 import pygame
+import random
 import random
 import sys
 
-# general code
+# General code
 pygame.display.set_caption("BadPong")
 clock = pygame.time.Clock()
 screen_width = 1000
@@ -11,22 +12,23 @@ screen_height = 500
 
 pygame.init()
 
-# variables
+# Variables
 screen = pygame.display.set_mode((screen_width, screen_height))
+gametime=0
 redsize = 15
 bluesize = 15
-ballwidth = 7
-ballradius = 7
+ballwidth = 10
+ballradius = 10
 redsquare = pygame.Rect(920, 200, redsize, redsize * 6)
 bluesquare = pygame.Rect(80, 200, bluesize, bluesize * 6)
 ball = pygame.Rect(screen_width // 2, screen_height // 2, ballwidth, ballradius)
-ball_speed_x = 5  # Initial speed of the ball in the x-direction
-ball_speed_y = 5  # Initial speed of the ball in the y-direction
+ball_speed_x = 5 
+ball_speed_y = 5 
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 
-# main loop
+# Main loop
 running = True
 while running:
     for event in pygame.event.get():
@@ -60,6 +62,10 @@ while running:
     # Check for collisions with paddles
     if ball.colliderect(bluesquare) or ball.colliderect(redsquare):
         ball_speed_x = -ball_speed_x
+        ball_speed_x += random.randint(-1,2)
+        if ballradius > 3 and ballwidth > 3:
+            ballradius -= 1
+            ballwidth -= 1
 
     screen.fill("#ffffff")
     pygame.draw.rect(screen, RED, redsquare)
