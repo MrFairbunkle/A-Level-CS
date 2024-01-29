@@ -61,7 +61,7 @@ worldData=[
     [1,1,1,1,1,0,1,1,1,1,1,4,1]
     ]
 
-# NOTE: 0 is river 1 is land 2 is mountain 3 is entrance 4 is house 5 is bridge 8 is
+# NOTE: 0 is river 1 is land 2 is mountain 3 is entrance 4 is house 5 is bridge 8 is player
 
 
 
@@ -89,6 +89,13 @@ while True:
         for j in range(max(0, player_column - 2), min(num_columns, player_column + 3))
     ):
         print("You can hear flowing water")
+
+    if any(
+        worldData[i][j] == 4
+        for i in range(max(0, player_row - 2), min(num_rows, player_row + 3))
+        for j in range(max(0, player_column - 2), min(num_columns, player_column + 3))
+    ):
+        print("You can hear talking nearby")
     
     # Move the player and print the world
     print("\n\n")  # You can use "\n" for new lines to clean up code
