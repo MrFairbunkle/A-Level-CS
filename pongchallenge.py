@@ -29,13 +29,13 @@ while running:
         if bluesquare.y - 5 >= 0:
             bluesquare.y-=5
     if key[pygame.K_s]:
-        if bluesquare.y + 5 <= screen_height:
+        if bluesquare.y + 5 <= screen_height - 80:
             bluesquare.y+=5
     if key[pygame.K_UP]:
         if redsquare.y - 5 >= 0:
             redsquare.y-=5
     if key[pygame.K_DOWN]:
-        if bluesquare.y + 5 <= screen_height:
+        if redsquare.y + 5 <= screen_height - 80:
             redsquare.y+=5
 
     screen.fill("#ffffff")
