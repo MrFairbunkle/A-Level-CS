@@ -3,6 +3,7 @@ import pygame
 import random
 import random
 import sys
+import time
 
 # General code
 pygame.display.set_caption("BadPong")
@@ -24,8 +25,8 @@ ballradius = 7
 redsquare = pygame.Rect(920, 200, redsize, redsize * 6)
 bluesquare = pygame.Rect(80, 200, bluesize, bluesize * 6)
 ball = pygame.Rect(screen_width // 2, screen_height // 2, ballwidth, ballradius)
-ball_speed_x = 5 
-ball_speed_y = 5 
+ball_speed_x = 0 
+ball_speed_y = 0 
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
@@ -38,6 +39,11 @@ while running:
             running = False
 
     key = pygame.key.get_pressed()
+
+    if key[pygame.K_SPACE]:
+        ball_speed_x=5
+        ball_speed_y=5
+
     if key[pygame.K_w]:
         if bluesquare.y - 5 >= 0:
             bluesquare.y -= 5
@@ -64,10 +70,14 @@ while running:
         redscore+=1
         print(f"redscore={redscore}")
         ball.left=screen_width//2
+        ball_speed_x=0
+        ball_speed_y=0
     if ball.right >= screen_width:
         bluescore+=1
         print(f"bluescore={bluescore}")
         ball.left=screen_width//2
+        ball_speed_x=0
+        ball_speed_y=0
 
     # Check for collisions with paddles
     if ball.colliderect(bluesquare) or ball.colliderect(redsquare):
