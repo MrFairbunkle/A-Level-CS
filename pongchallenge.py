@@ -89,6 +89,7 @@ while running:
     # Check for collisions with paddles
     if ball.colliderect(bluesquare) or ball.colliderect(redsquare):
         ball_speed_x = -ball_speed_x
+        ball_speed_x*=1.1
 
     screen.fill("#ffffff")
     pygame.draw.rect(screen, RED, redsquare)
