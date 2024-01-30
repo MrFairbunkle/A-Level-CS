@@ -38,6 +38,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    if redscore==11 or bluescore==11:
+        running=False
+        pygame.quit()
+
     key = pygame.key.get_pressed()
 
     if key[pygame.K_SPACE]:
@@ -70,12 +74,14 @@ while running:
         redscore+=1
         print(f"redscore={redscore}")
         ball.left=screen_width//2
+        ball.top=screen_height//2
         ball_speed_x=0
         ball_speed_y=0
     if ball.right >= screen_width:
         bluescore+=1
         print(f"bluescore={bluescore}")
         ball.left=screen_width//2
+        ball.top=screen_height//2
         ball_speed_x=0
         ball_speed_y=0
 
