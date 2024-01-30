@@ -14,11 +14,13 @@ pygame.init()
 
 # Variables
 screen = pygame.display.set_mode((screen_width, screen_height))
-gametime=0
+redscore = 0
+bluescore = 0
+gametime = 0
 redsize = 15
 bluesize = 15
-ballwidth = 10
-ballradius = 10
+ballwidth = 7
+ballradius = 7
 redsquare = pygame.Rect(920, 200, redsize, redsize * 6)
 bluesquare = pygame.Rect(80, 200, bluesize, bluesize * 6)
 ball = pygame.Rect(screen_width // 2, screen_height // 2, ballwidth, ballradius)
@@ -58,14 +60,19 @@ while running:
         ball_speed_y = -ball_speed_y
     if ball.left <= 0 or ball.right >= screen_width:
         ball_speed_x = -ball_speed_x
+    if ball.left <= 0:
+        redscore+=1
+        print(f"redscore={redscore}")
+    if ball.right >= screen_width:
+        bluescore+=1
+        print(f"bluescore={bluescore}")
 
     # Check for collisions with paddles
     if ball.colliderect(bluesquare) or ball.colliderect(redsquare):
         ball_speed_x = -ball_speed_x
-        ball_speed_x += random.randint(-1,2)
-        if ballradius > 3 and ballwidth > 3:
-            ballradius -= 1
-            ballwidth -= 1
+        ball_speed_x += random.randint(-2,2)
+   
+    
 
     screen.fill("#ffffff")
     pygame.draw.rect(screen, RED, redsquare)
