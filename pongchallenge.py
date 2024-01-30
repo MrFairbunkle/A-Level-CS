@@ -38,6 +38,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # Check if score = 11
     if redscore==11 or bluescore==11:
         running=False
         pygame.quit()
@@ -88,9 +89,6 @@ while running:
     # Check for collisions with paddles
     if ball.colliderect(bluesquare) or ball.colliderect(redsquare):
         ball_speed_x = -ball_speed_x
-        ball_speed_x += random.randint(-2,2)
-   
-    
 
     screen.fill("#ffffff")
     pygame.draw.rect(screen, RED, redsquare)
