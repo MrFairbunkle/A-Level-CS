@@ -63,9 +63,11 @@ while running:
     if ball.left <= 0:
         redscore+=1
         print(f"redscore={redscore}")
+        ball.left=screen_width//2
     if ball.right >= screen_width:
         bluescore+=1
         print(f"bluescore={bluescore}")
+        ball.left=screen_width//2
 
     # Check for collisions with paddles
     if ball.colliderect(bluesquare) or ball.colliderect(redsquare):
