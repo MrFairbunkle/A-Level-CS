@@ -1,20 +1,20 @@
 import random
 
+# NOTE: Fix issue where all preivously travelled tiles become a 1 when moved off of
+
+# World positioning
 def print_world(world, player_row, player_column):
-    for i, row in enumerate(world):
+    for i, row in enumerate(world): # Allows you to keep track of the number of loops or things
         for j, cell in enumerate(row):
             if i == player_row and j == player_column:
                 print("8", end=" ")  # Print the player position
-            elif (
-                abs(i - player_row) <= 2
-                and abs(j - player_column) <= 2
-                and world[i][j] == 0
-            ):
+            elif (abs(i - player_row) <= 2 and abs(j - player_column) <= 2 and world[i][j] == 0): # Absolute value
                 print("W", end=" ")  # Print "W" for river within 2 spaces
             else:
                 print(world[i][j], end=" ")
         print()
 
+# Movement
 def move_player(world, current_row, current_column, previous_value):
   while True:
         move = input("Enter a direction (up/down/left/right): ").lower()
@@ -44,7 +44,7 @@ def move_player(world, current_row, current_column, previous_value):
 
 
 
-
+# World as an array
 worldData=[
     [2,2,2,2,2,2,1,1,1,1,0,1,1],
     [2,2,4,4,2,2,1,1,1,0,1,1,1],
@@ -83,18 +83,11 @@ worldData[player_row][player_column] = 8
 player_previous_value = player_starting_pos  # This line tracks the cell's original value
 while True:
     # Check for nearby river within 2 spaces
-    if any(
-        worldData[i][j] == 0
-        for i in range(max(0, player_row - 2), min(num_rows, player_row + 3))
-        for j in range(max(0, player_column - 2), min(num_columns, player_column + 3))
-    ):
+    if any(worldData[i][j] == 0 for i in range(max(0, player_row - 2), min(num_rows, player_row + 3)) for j in range(max(0, player_column - 2), min(num_columns, player_column + 3))):
         print("You can hear flowing water")
 
     if any(
-        worldData[i][j] == 4
-        for i in range(max(0, player_row - 2), min(num_rows, player_row + 3))
-        for j in range(max(0, player_column - 2), min(num_columns, player_column + 3))
-    ):
+        worldData[i][j] == 4 for i in range(max(0, player_row - 2), min(num_rows, player_row + 3)) for j in range(max(0, player_column - 2), min(num_columns, player_column + 3))):
         print("You can hear talking nearby")
     
     # Move the player and print the world
