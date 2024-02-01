@@ -109,8 +109,8 @@ while running:
     blue_score_text = font.render("Blue Score: " + str(bluescore), True, BLACK)
 
     # Blit the text surfaces onto the screen
-    screen.blit(red_score_text, (10, 10))
-    screen.blit(blue_score_text, (screen_width - blue_score_text.get_width() - 10, 10))
+    screen.blit(blue_score_text, (10, 10))
+    screen.blit(red_score_text, (screen_width - red_score_text.get_width() - 10, 10))
 
     # Update the display
     pygame.display.flip()
