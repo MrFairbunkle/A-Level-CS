@@ -29,7 +29,7 @@ ball_speed_y = 0
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
-# RANDOMCOLOUR = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+WHITE = (255, 255, 255)
 
 # Main loop
 running = True
@@ -37,8 +37,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    RANDOMCOLOUR = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 
     # Check if score = 11
     if redscore == 11 or bluescore == 11:
@@ -93,17 +91,22 @@ while running:
         ball_speed_x = -ball_speed_x
         ball_speed_x *= 1.1
 
+    if redscore==10 or bluescore==10:
+        RED=(random.randint(0,255),0,0)
+        BLUE=(0,0,random.randint(0,255))
+        BLACK=(random.randint(0,255),random.randint(0,255),random.randint(0,255))
+
     # Colour the screen
-    screen.fill((random.randint(0,255),random.randint(0,255),random.randint(0,255)))
+    screen.fill(WHITE)
 
     # Draw objects
-    pygame.draw.rect(screen, (random.randint(0,255),random.randint(0,255),random.randint(0,255)), redsquare)
-    pygame.draw.rect(screen, (random.randint(0,255),random.randint(0,255),random.randint(0,255)), bluesquare)
-    pygame.draw.circle(screen, (random.randint(0,255),random.randint(0,255),random.randint(0,255)), (ball.x, ball.y), ballwidth, ballradius)
+    pygame.draw.rect(screen, RED, redsquare)
+    pygame.draw.rect(screen, BLUE, bluesquare)
+    pygame.draw.circle(screen, BLACK, (ball.x, ball.y), ballwidth, ballradius)
 
     # Render text surfaces for red and blue scores
-    red_score_text = font.render("Left Score: " + str(redscore), True, (random.randint(0,255),random.randint(0,255),random.randint(0,255)))
-    blue_score_text = font.render("Right Score: " + str(bluescore), True, (random.randint(0,255),random.randint(0,255),random.randint(0,255)))
+    red_score_text = font.render("Red Score: " + str(redscore), True, BLACK)
+    blue_score_text = font.render("Blue Score: " + str(bluescore), True, BLACK)
 
     # Blit the text surfaces onto the screen
     screen.blit(red_score_text, (10, 10))
