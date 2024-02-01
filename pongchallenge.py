@@ -1,17 +1,15 @@
 # Imports
 import pygame
-import random
-import random
 import sys
-import time
+
+pygame.init()
 
 # General code
 pygame.display.set_caption("BadPong")
 clock = pygame.time.Clock()
 screen_width = 1000
 screen_height = 500
-
-pygame.init()
+font = pygame.font.SysFont('Bauhaus 93', 20)
 
 # Variables
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -39,15 +37,15 @@ while running:
             running = False
 
     # Check if score = 11
-    if redscore==11 or bluescore==11:
-        running=False
+    if redscore == 11 or bluescore == 11:
+        running = False
         pygame.quit()
 
     key = pygame.key.get_pressed()
 
     if key[pygame.K_SPACE]:
-        ball_speed_x=5
-        ball_speed_y=5
+        ball_speed_x = 5
+        ball_speed_y = 5
 
     if key[pygame.K_w]:
         if bluesquare.y - 5 >= 0:
@@ -72,29 +70,46 @@ while running:
     if ball.left <= 0 or ball.right >= screen_width:
         ball_speed_x = -ball_speed_x
     if ball.left <= 0:
-        redscore+=1
+        redscore += 1
         print(f"redscore={redscore}")
-        ball.left=screen_width//2
-        ball.top=screen_height//2
-        ball_speed_x=0
-        ball_speed_y=0
+        ball.left = screen_width // 2
+        ball.top = screen_height // 2
+        ball_speed_x = 0
+        ball_speed_y = 0
     if ball.right >= screen_width:
-        bluescore+=1
+        bluescore += 1
         print(f"bluescore={bluescore}")
-        ball.left=screen_width//2
-        ball.top=screen_height//2
-        ball_speed_x=0
-        ball_speed_y=0
+        ball.left = screen_width // 2
+        ball.top = screen_height // 2
+        ball_speed_x = 0
+        ball_speed_y = 0
 
     # Check for collisions with paddles
     if ball.colliderect(bluesquare) or ball.colliderect(redsquare):
         ball_speed_x = -ball_speed_x
-        ball_speed_x*=1.1
+        ball_speed_x *= 1.1
 
-    screen.fill("#ffffff")
+    # Clear the screen
+    screen.fill((255, 255, 255))
+
+    # Draw objects
     pygame.draw.rect(screen, RED, redsquare)
     pygame.draw.rect(screen, BLUE, bluesquare)
-    pygame.draw.circle(screen, (BLACK), (ball.x, ball.y), ballwidth, ballradius)
+    pygame.draw.circle(screen, BLACK, (ball.x, ball.y), ballwidth, ballradius)
 
-    pygame.display.update()
+    # Render text surfaces for red and blue scores
+    red_score_text = font.render("Red Score: " + str(redscore), True, BLACK)
+    blue_score_text = font.render("Blue Score: " + str(bluescore), True, BLACK)
+
+    # Blit the text surfaces onto the screen
+    screen.blit(red_score_text, (10, 10))
+    screen.blit(blue_score_text, (screen_width - blue_score_text.get_width() - 10, 10))
+
+    # Update the display
+    pygame.display.flip()
+
+    # Cap the frame rate
     clock.tick(60)
+
+pygame.quit()
+sys.exit()
