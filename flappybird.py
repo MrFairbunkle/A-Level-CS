@@ -30,8 +30,8 @@ WHITE = (230, 230, 230)
 # Pillar Generation
 def generate_pillars():
     pillarheight = random.randint(50, screen_height - pillargap - 50)
-    bottompillar = pygame.Rect(700, 0, pillarwidth, pillarheight)
-    toppillar = pygame.Rect(700, pillarheight + pillargap, pillarwidth, screen_height - pillarheight - pillargap)
+    bottompillar = pygame.Rect(screen_width, 0, pillarwidth, pillarheight)
+    toppillar = pygame.Rect(screen_width  , pillarheight + pillargap, pillarwidth, screen_height - pillarheight - pillargap)
     return bottompillar, toppillar
 
 bottompillar, toppillar = generate_pillars()
