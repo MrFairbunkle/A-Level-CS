@@ -17,14 +17,20 @@ score = 0
 gametime = 0
 birdwidth = 7
 birdradius = 7
-pillarsize = 25
-bottompillar = pygame.Rect(600, 0, pillarsize, pillarsize * 6)
-toppillar = pygame.Rect(800, 350, pillarsize, pillarsize * 6)
+pillarsize = 35  
+bottompillar = pygame.Rect(800, 0, pillarsize, pillarsize * 6)
+toppillar = pygame.Rect(800, 300, pillarsize, pillarsize * 6)
 bird = pygame.Rect(screen_width // 2, screen_height // 2, birdwidth, birdradius)
-bird_speed_x = 0 
+pillar_speed_x = 0
+pillar_speed_y = 0
+bird_speed_x = 0
 bird_speed_y = 0 
 gravity = 0.5 
 last_score_update = time.time()
+bottompillar_speed_x = -5
+bottompillar_speed_y = 0 
+toppillar_speed_x = -5 
+toppillar_speed_y = 0
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
@@ -41,9 +47,13 @@ while running:
 
     key = pygame.key.get_pressed()
 
+    bottompillar.x += bottompillar_speed_x
+    bottompillar.y += bottompillar_speed_y
+    toppillar.x += toppillar_speed_x
+    toppillar.y += toppillar_speed_y
+
     if key[pygame.K_SPACE]:
-        bird_speed_x = 5
-        bird_speed_y = -10
+        bird_speed_y = -5
 
     # Apply gravity
     bird_speed_y += gravity
@@ -51,6 +61,12 @@ while running:
     # Update bird position
     bird.x += bird_speed_x
     bird.y += bird_speed_y
+
+    # Update pillar position
+    bottompillar.x += pillar_speed_y
+    bottompillar.y += pillar_speed_x
+    toppillar.x += pillar_speed_y
+    toppillar.y += pillar_speed_x
 
     # Ensure bird stays within the screen bounds
     if bird.top <= 0:
@@ -74,8 +90,8 @@ while running:
     screen.fill(WHITE)
 
     # Draw objects
-    pygame.draw.rect(screen, RED, toppillar)
-    pygame.draw.rect(screen, BLUE, bottompillar)
+    pygame.draw.rect(screen, GREEN, toppillar)
+    pygame.draw.rect(screen, GREEN, bottompillar)
     pygame.draw.circle(screen, BLACK, (bird.x, bird.y), birdwidth, birdradius)
 
     # Render text surfaces for red and blue scores
