@@ -18,6 +18,7 @@ birdradius = 7
 pillargap = 200
 pillarwidth = 35
 pillar_speed_x = -5
+bird = pygame.image.load("bird.jfif")
 bird_speed_y = 0
 gravity = 0.5
 last_score_update = time.time()
