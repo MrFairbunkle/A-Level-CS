@@ -1,12 +1,17 @@
+# Imports
 import pygame, random, time, sys
 
+
+# General Code
 pygame.init()
-pygame.display.set_caption("FlappyBird")
+pygame.display.set_caption("FlappyRyall")
 clock = pygame.time.Clock()
 screen_width = 1000
 screen_height = 500
 font = pygame.font.SysFont('Bauhaus 93', 20)
 
+
+# Variables
 screen = pygame.display.set_mode((screen_width, screen_height))
 score = 0
 gametime = 0
@@ -20,9 +25,10 @@ gravity = 0.5
 last_score_update = time.time()
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
-GREEN = (53, 129, 34)
+GREEN = (159,191,87)
 BLACK = (0, 0, 0)
 WHITE = (230, 230, 230)
+BACKGROUND = (74, 195, 206)
 
 def generate_pillars():
     pillarheight = random.randint(50, screen_height - pillargap - 50)
@@ -36,6 +42,8 @@ birdy = pygame.image.load("bird.jfif")
 bird = pygame.transform.scale(birdy, (50, 50))
 bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
 
+
+# Main Loop
 running = True
 while running:
     for event in pygame.event.get():
@@ -66,7 +74,7 @@ while running:
         score += 1
         last_score_update = current_time
 
-    screen.fill(WHITE)
+    screen.fill(BACKGROUND)
 
     pygame.draw.rect(screen, GREEN, toppillar)
     pygame.draw.rect(screen, GREEN, bottompillar)
