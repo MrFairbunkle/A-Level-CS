@@ -17,7 +17,7 @@ score = 0
 gametime = 0
 birdwidth = 7
 birdradius = 7
-pillargap = 200
+pillargap = 150
 pillarwidth = 35
 pillar_speed_x = -5
 bird_speed_y = 0
@@ -52,7 +52,7 @@ while running:
 
     key = pygame.key.get_pressed()
     if key[pygame.K_SPACE]:
-        bird_speed_y = -7
+        bird_speed_y = -5
 
     bird_speed_y += gravity
     bird_rect.y += bird_speed_y
