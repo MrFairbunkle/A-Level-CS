@@ -9,6 +9,7 @@ clock = pygame.time.Clock()
 screen_width = 1000
 screen_height = 500
 font = pygame.font.SysFont('Bauhaus 93', 20)
+font2 = pygame.font.SysFont('Bauhaus 93', 64)
 
 
 # Variables
@@ -19,9 +20,9 @@ birdwidth = 7
 birdradius = 7
 pillargap = 150
 pillarwidth = 35
-pillar_speed_x = -5
+pillar_speed_x = 0
 bird_speed_y = 0
-gravity = 0.5
+gravity = 0
 last_score_update = time.time()
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
@@ -50,9 +51,16 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # Code to start the game
     key = pygame.key.get_pressed()
     if key[pygame.K_SPACE]:
         bird_speed_y = -5
+        gravity = 0.5
+        pillar_speed_x = -5
+        current_time = time.time()
+        if current_time - last_score_update >= 1:
+            score += 1
+            last_score_update = current_time
 
     bird_speed_y += gravity
     bird_rect.y += bird_speed_y
@@ -69,11 +77,6 @@ while running:
     if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
         running = False
 
-    current_time = time.time()
-    if current_time - last_score_update >= 1:
-        score += 1
-        last_score_update = current_time
-
     screen.fill(BACKGROUND)
 
     pygame.draw.rect(screen, GREEN, toppillar)
@@ -81,7 +84,10 @@ while running:
     screen.blit(bird, bird_rect.topleft)
 
     score_text = font.render("Score: " + str(score), True, BLACK)
+    start_text = font2.render("Press Space to Start", True, BLACK)
     screen.blit(score_text, (10, 10))
+    if gravity == 0:
+        screen.blit(start_text, (screen_width // 2 - 220, screen_height // 2 - 20))
 
     pygame.display.update()
 
