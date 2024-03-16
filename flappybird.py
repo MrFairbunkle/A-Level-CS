@@ -35,7 +35,10 @@ bird = pygame.transform.scale(birdimg, (50, 50))
 bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
 bossimg = pygame.image.load("boss.jpg")
 boss = pygame.transform.scale(bossimg, (100, 100))
-boss_rect = bird.get_rect(topleft=(500, 500))
+boss_rect = bird.get_rect(topleft=(800,200))
+boss_projectiles = [pygame.Rect(650, random.randint(0, screen_height), 100, 50) for _ in range(3)]  
+boss_projectile_speed_x = 8
+boss_attack_delay = 60  
 
 
 # Pillar Generation
@@ -97,21 +100,41 @@ while running:
         time.sleep(1.5)
         reset_game()
 
-    if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
-        bird_speed_y = 0
-        gravity = 0
-        pillar_speed_x = 0
-        if score >= highscore:
-            highscore = score
-        else:
-            highscore = highscore
-        time.sleep(1.5)
-        reset_game()
+    # Changes for collision behavior based on score
+    if score < 10:
+        if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
+            bird_speed_y = 0
+            gravity = 0
+            pillar_speed_x = 0
+            if score >= highscore:
+                highscore = score
+            else:
+                highscore = highscore
+            time.sleep(1.5)
+            reset_game()
+    else:
+        if bird_rect.colliderect(boss_rect) or any(bird_rect.colliderect(projectile) for projectile in boss_projectiles):
+            bird_speed_y = 0
+            gravity = 0
+            pillar_speed_x = 0
+            if score >= highscore:
+                highscore = score
+            else:
+                highscore = highscore
+            time.sleep(1.5)
+            reset_game()
 
     screen.fill(BACKGROUND)
 
-    pygame.draw.rect(screen, GREEN, toppillar)
-    pygame.draw.rect(screen, GREEN, bottompillar)
+    # Drawing pillars based on score
+    if score < 10:
+        pygame.draw.rect(screen, GREEN, toppillar)
+        pygame.draw.rect(screen, GREEN, bottompillar)
+    else:
+        screen.blit(boss, boss_rect.topleft)
+        for projectile in boss_projectiles:
+            pygame.draw.rect(screen, RED, projectile)
+
     screen.blit(bird, bird_rect.topleft)
 
     score_text = font.render("Score: " + str(score), True, BLACK)
@@ -122,12 +145,18 @@ while running:
     if gravity == 0:
         screen.blit(start_text, (screen_width // 2 - 220, screen_height // 2 - 20))
 
-    # Difficulty increase      
-    # if score >= 10 and score % 10 == 0:     ## NOTE: DOESNT WORK ##
-    #     pillar_speed_x = -10
+    # Difficulty increase
     if score >= 10:
         pillar_speed_x = 0
-        pygame.draw.rect(screen, GREEN, boss)
+        if boss_attack_delay > 0:
+            boss_attack_delay -= 1
+        else:
+            boss_rect.y = random.randint(0, screen_height - 100)
+            for projectile in boss_projectiles:
+                projectile.x -= boss_projectile_speed_x
+                if projectile.right < 0:
+                    projectile.y = random.randint(0, screen_height)
+                    projectile.x = 650
 
     pygame.display.update()
 
