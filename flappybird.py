@@ -30,7 +30,15 @@ GREEN = (159,191,87)
 BLACK = (0, 0, 0)
 WHITE = (230, 230, 230)
 BACKGROUND = (74, 195, 206)
+birdimg = pygame.image.load("bird.jfif")
+bird = pygame.transform.scale(birdimg, (50, 50))
+bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
+bossimg = pygame.image.load("boss.jpg")
+boss = pygame.transform.scale(bossimg, (100, 100))
+boss_rect = bird.get_rect(topleft=(500, 500))
 
+
+# Pillar Generation
 def generate_pillars():
     pillarheight = random.randint(50, screen_height - pillargap - 50)
     bottompillar = pygame.Rect(screen_width, 0, pillarwidth, pillarheight)
@@ -39,11 +47,8 @@ def generate_pillars():
 
 bottompillar, toppillar = generate_pillars()
 
-birdy = pygame.image.load("bird.jfif")
-bird = pygame.transform.scale(birdy, (50, 50))
-bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
 
-# Reset function
+# Reset Function
 def reset_game():
     global bird_rect, bottompillar, toppillar, score, bird_speed_y, gravity, pillar_speed_x
     bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
@@ -53,6 +58,8 @@ def reset_game():
     gravity = 0
     pillar_speed_x = 0
 
+
+# Main Game
 running = True
 while running:
     for event in pygame.event.get():
@@ -118,6 +125,9 @@ while running:
     # Difficulty increase      
     # if score >= 10 and score % 10 == 0:     ## NOTE: DOESNT WORK ##
     #     pillar_speed_x = -10
+    if score >= 10:
+        pillar_speed_x = 0
+        pygame.draw.rect(screen, GREEN, boss)
 
     pygame.display.update()
 
