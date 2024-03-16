@@ -69,7 +69,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Code to start the game
+    # Start Game
     key = pygame.key.get_pressed()
     if key[pygame.K_SPACE]:
         bird_speed_y = -5
@@ -100,7 +100,7 @@ while running:
         time.sleep(1.5)
         reset_game()
 
-    # Changes for collision behavior based on score
+    # Changes for Collision
     if score < 10:
         if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
             bird_speed_y = 0
@@ -126,7 +126,7 @@ while running:
 
     screen.fill(BACKGROUND)
 
-    # Drawing pillars based on score
+    # Drawing Pillars
     if score < 10:
         pygame.draw.rect(screen, GREEN, toppillar)
         pygame.draw.rect(screen, GREEN, bottompillar)
@@ -145,7 +145,7 @@ while running:
     if gravity == 0:
         screen.blit(start_text, (screen_width // 2 - 220, screen_height // 2 - 20))
 
-    # Difficulty increase
+    # Boss and Stuff
     if score >= 10:
         pillar_speed_x = 0
         if boss_attack_delay > 0:
