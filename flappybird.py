@@ -101,7 +101,8 @@ while running:
         reset_game()
 
     # Changes for Collision
-    if score < 10:
+    if score < 10:                                                          ## NOTE ##                       
+        collision_distance = 20             
         if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
             bird_speed_y = 0
             gravity = 0
@@ -127,7 +128,7 @@ while running:
     screen.fill(BACKGROUND)
 
     # Drawing Pillars
-    if score < 10:
+    if score < 10:                                                          ## NOTE ##                                                      
         pygame.draw.rect(screen, GREEN, toppillar)
         pygame.draw.rect(screen, GREEN, bottompillar)
     else:
@@ -146,7 +147,7 @@ while running:
         screen.blit(start_text, (screen_width // 2 - 220, screen_height // 2 - 20))
 
     # Boss and Stuff
-    if score >= 10:
+    if score >= 10:                                                         ## NOTE ##
         pillar_speed_x = 0
         if boss_attack_delay > 0:
             boss_attack_delay -= 1
