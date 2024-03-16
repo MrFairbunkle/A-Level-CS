@@ -15,6 +15,7 @@ font2 = pygame.font.SysFont('Bauhaus 93', 64)
 # Variables
 screen = pygame.display.set_mode((screen_width, screen_height))
 score = 0
+highscore = 0
 gametime = 0
 birdwidth = 7
 birdradius = 7
@@ -43,6 +44,15 @@ birdy = pygame.image.load("bird.jfif")
 bird = pygame.transform.scale(birdy, (50, 50))
 bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
 
+# Reset function
+def reset_game():
+    global bird_rect, bottompillar, toppillar, score, bird_speed_y, gravity, pillar_speed_x
+    bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
+    bottompillar, toppillar = generate_pillars()
+    score = 0
+    bird_speed_y = 0
+    gravity = 0
+    pillar_speed_x = 0
 
 # Main Loop
 running = True
@@ -72,10 +82,20 @@ while running:
         bottompillar, toppillar = generate_pillars()
 
     if bird_rect.top <= 0 or bird_rect.bottom >= screen_height:
-        running = False
+        bird_speed_y = 0
+        gravity = 0
+        pillar_speed_x = 0
+        highscore = score
+        time.sleep(3)
+        reset_game()
 
     if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
-        running = False
+        bird_speed_y = 0
+        gravity = 0
+        pillar_speed_x = 0
+        highscore = score
+        time.sleep(3)
+        reset_game()
 
     screen.fill(BACKGROUND)
 
@@ -85,7 +105,9 @@ while running:
 
     score_text = font.render("Score: " + str(score), True, BLACK)
     start_text = font2.render("Press Space to Start", True, BLACK)
+    highscore_text = font.render("Highscore: " + str(highscore), True, BLACK)
     screen.blit(score_text, (10, 10))
+    screen.blit(highscore_text, (80, 10))
     if gravity == 0:
         screen.blit(start_text, (screen_width // 2 - 220, screen_height // 2 - 20))
 
