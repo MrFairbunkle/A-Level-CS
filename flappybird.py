@@ -32,15 +32,13 @@ BLACK = (0, 0, 0)
 WHITE = (230, 230, 230)
 BACKGROUND = (74, 195, 206)
 
-# Function to generate pillars
 def generate_pillars():
     pillarheight = random.randint(50, screen_height - pillargap - 50)
     bottompillar = pygame.Rect(screen_width, 0, pillarwidth, pillarheight)
     toppillar = pygame.Rect(screen_width, pillarheight + pillargap, pillarwidth, screen_height - pillarheight - pillargap)
     return bottompillar, toppillar
 
-# Initial pillars
-active_pillars = [generate_pillars()]
+bottompillar, toppillar = generate_pillars()
 
 birdy = pygame.image.load("bird.jfif")
 bird = pygame.transform.scale(birdy, (50, 50))
@@ -48,9 +46,9 @@ bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
 
 # Reset function
 def reset_game():
-    global bird_rect, active_pillars, score, bird_speed_y, gravity, pillar_speed_x
+    global bird_rect, bottompillar, toppillar, score, bird_speed_y, gravity, pillar_speed_x
     bird_rect = bird.get_rect(topleft=(100, screen_height // 2))
-    active_pillars = [generate_pillars()]
+    bottompillar, toppillar = generate_pillars()
     score = 0
     bird_speed_y = 0
     gravity = 0
@@ -62,8 +60,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    screen.fill(BACKGROUND)  # Fill the screen with the background color
 
     # Code to start the game
     key = pygame.key.get_pressed()
@@ -79,36 +75,32 @@ while running:
     bird_speed_y += gravity
     bird_rect.y += bird_speed_y
 
-    # Move and draw pillars
-    for i, (bottompillar, toppillar) in enumerate(active_pillars):
-        bottompillar.x += pillar_speed_x
-        toppillar.x += pillar_speed_x
-        pygame.draw.rect(screen, GREEN, toppillar)
-        pygame.draw.rect(screen, GREEN, bottompillar)
+    bottompillar.x += pillar_speed_x
+    toppillar.x += pillar_speed_x
 
-        # Remove pillars that have moved off-screen
-        if bottompillar.right < 0:
-            active_pillars.pop(i)
-            active_pillars.append(generate_pillars())
+    if bottompillar.right < 0:
+        bottompillar, toppillar = generate_pillars()
 
-        # Collision detection
-        if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
-            bird_speed_y = 0
-            gravity = 0
-            pillar_speed_x = 0
-            highscore = max(highscore, score)
-            time.sleep(3)
-            reset_game()
-
-    # Check for bird collision with screen boundaries
     if bird_rect.top <= 0 or bird_rect.bottom >= screen_height:
         bird_speed_y = 0
         gravity = 0
         pillar_speed_x = 0
-        highscore = max(highscore, score)
-        time.sleep(3)
+        highscore = score
+        time.sleep(1.5)
         reset_game()
 
+    if bird_rect.colliderect(bottompillar) or bird_rect.colliderect(toppillar):
+        bird_speed_y = 0
+        gravity = 0
+        pillar_speed_x = 0
+        highscore = score
+        time.sleep(1.5)
+        reset_game()
+
+    screen.fill(BACKGROUND)
+
+    pygame.draw.rect(screen, GREEN, toppillar)
+    pygame.draw.rect(screen, GREEN, bottompillar)
     screen.blit(bird, bird_rect.topleft)
 
     score_text = font.render("Score: " + str(score), True, BLACK)
