@@ -83,7 +83,10 @@ while running:
         bird_speed_y = 0
         gravity = 0
         pillar_speed_x = 0
-        highscore = score
+        if score >= highscore:
+            highscore = score
+        else:
+            highscore = highscore
         time.sleep(1.5)
         reset_game()
 
@@ -91,7 +94,10 @@ while running:
         bird_speed_y = 0
         gravity = 0
         pillar_speed_x = 0
-        highscore = score
+        if score >= highscore:
+            highscore = score
+        else:
+            highscore = highscore
         time.sleep(1.5)
         reset_game()
 
@@ -109,9 +115,9 @@ while running:
     if gravity == 0:
         screen.blit(start_text, (screen_width // 2 - 220, screen_height // 2 - 20))
 
-    # Pillar speed increase
-    if score >= 10:
-        pillar_speed_x = -7
+    # Difficulty increase      
+    # if score >= 10 and score % 10 == 0:     ## NOTE: DOESNT WORK ##
+    #     pillar_speed_x = -10
 
     pygame.display.update()
 
