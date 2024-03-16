@@ -151,7 +151,6 @@ while running:
         if boss_attack_delay > 0:
             boss_attack_delay -= 1
         else:
-            boss_rect.y = random.randint(0, screen_height - 100)
             for projectile in boss_projectiles:
                 projectile.x -= boss_projectile_speed_x
                 if projectile.right < 0:
