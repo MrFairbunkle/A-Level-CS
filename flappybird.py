@@ -142,7 +142,7 @@ while running:
     start_text = font2.render("Press Space to Start", True, BLACK)
     highscore_text = font.render("Highscore: " + str(highscore), True, BLACK)
     screen.blit(score_text, (10, 10))
-    screen.blit(highscore_text, (80, 10))
+    screen.blit(highscore_text, (100, 10))
     if gravity == 0:
         screen.blit(start_text, (screen_width // 2 - 220, screen_height // 2 - 20))
 
